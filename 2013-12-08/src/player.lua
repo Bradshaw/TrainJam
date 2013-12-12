@@ -44,7 +44,7 @@ function player_mt:update(dt)
 		self.keyboard = true
 	end
 
-	if love.mouse.isDown(1) then
+	if love.mouse.isDown("l", "r") then
 		self.keyboard = false
 	end
 	if not self.keyboard then
