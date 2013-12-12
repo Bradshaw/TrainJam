@@ -7,6 +7,8 @@ function love.load(arg)
 	require("dude")
 	require("blob")
 	require("bonus")
+	require("weapon")
+	require("bullet")
 
 	gstate = require "gamestate"
 	game = require("game")

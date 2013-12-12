@@ -65,7 +65,7 @@ function target_mt:update( dt )
 		self.purge = true
 		shake = shake+0.3
 		life = life + 5
-		s = splatter.new(love.graphics.getWidth()-30+15/2,love.graphics.getHeight()+(-life/maxlife)*500,15/2)
+		s = splatter.new(love.graphics.getWidth()-30+15/2,love.graphics.getHeight()+(-life/maxlife)*500,15)
 		s.r = self.r
 		s.g = self.g
 		s.b = self.b

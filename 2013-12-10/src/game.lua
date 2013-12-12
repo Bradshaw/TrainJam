@@ -10,7 +10,7 @@ function state:enter()
 	d = dude.new()
 
 
-	for i=1,0 do
+	for i=1,10 do
 		blob.new()
 	end
 
@@ -85,6 +85,7 @@ function state:update(dt)
 
 
 	m:update(dt)
+	bullet.update(dt)
 	blob.update(dt)
 	bonus.update(dt)
 	d:update(dt)
@@ -95,6 +96,7 @@ function state:draw()
 	m:draw()
 	blob.draw()
 	bonus.draw()
+	bullet.draw()
 	d:draw()
 	m:drawcap()
 end

@@ -1,3 +1,5 @@
+require("weapon")
+
 local dude_mt = {}
 dude = {}
 
@@ -13,6 +15,13 @@ function dude.new()
 	self.dx = 0
 	self.dy = 0
 
+	self.aim = {x=1, y=0}
+
+	self.weapon = {
+		pistol = weapon.new()
+	}
+	self.currentweapon = self.weapon.pistol
+
 
 	return self
 end
@@ -20,17 +29,23 @@ end
 function dude_mt:update( dt )
 	self.dy = self.dy - self.dy * 3 * dt
 	self.dx = self.dx - self.dx * 3 * dt
+	local ax = 0
+	local ay = 0
 	if love.keyboard.isDown("left","q","a") then
 		self.dx = self.dx - dt * 10
+		ax = ax-1
 	end
 	if love.keyboard.isDown("right","d") then
 		self.dx = self.dx + dt * 10
+		ax = ax+1
 	end
 	if love.keyboard.isDown("up","z","w") then
 		self.dy = self.dy - dt * 10
+		ay = ay-1
 	end
 	if love.keyboard.isDown("down","s") then
 		self.dy = self.dy + dt * 10
+		ay = ay+1
 	end
 
 	self.y = self.y + self.dy*dt
@@ -44,8 +59,17 @@ function dude_mt:update( dt )
 		self.x = self.x - self.dx*dt
 		self.dx = -self.dx
 	end
-
-
+	self.currentweapon:update(dt)
+	if love.keyboard.isDown(" ") then
+		self.currentweapon:tryFire(self, self.aim)
+	else
+		if ax~=0 or ay~=0 then
+			local dx, dy = ax, ay
+			local d = math.sqrt(dx*dx+dy*dy)
+			local nx, ny = dx/d, dy/d
+			self.aim = {x=nx, y=ny}
+		end
+	end
 	
 end
 

@@ -25,32 +25,40 @@ function player_mt:update(dt)
 	self.time = self.time + dt
 
 	if love.keyboard.isDown("left", "q", "a") then
-		self.dx = self.dx - self.acc*dt
+		self.dx = self.dx - self.acc*dt*2
+		self.keyboard = true
 	end
 
 	if love.keyboard.isDown("right", "d") then
-		self.dx = self.dx + self.acc*dt
+		self.dx = self.dx + self.acc*dt*2
+		self.keyboard = true
 	end
 
 	if love.keyboard.isDown("up", "z", "w") then
-		self.dy = self.dy - self.acc*dt
+		self.dy = self.dy - self.acc*dt*2
+		self.keyboard = true
 	end
 
 	if love.keyboard.isDown("down", "s") then
-		self.dy = self.dy + self.acc*dt
+		self.dy = self.dy + self.acc*dt*2
+		self.keyboard = true
 	end
 
+	if love.mouse.isDown(1) then
+		self.keyboard = false
+	end
+	if not self.keyboard then
+		local dx = love.mouse.getX()-self.x
+		local dy = love.mouse.getY()-self.y
+		local d = math.sqrt(dx*dx+dy*dy)
 
-	local dx = love.mouse.getX()-self.x
-	local dy = love.mouse.getY()-self.y
-	local d = math.sqrt(dx*dx+dy*dy)
+		if d>0 then
+			local nx = dx/100
+			local ny = dy/100
 
-	if d>0 then
-		local nx = dx/100
-		local ny = dy/100
-
-		self.dx = self.dx + nx*dt*self.acc
-		self.dy = self.dy + ny*dt*self.acc
+			self.dx = self.dx + nx*dt*self.acc
+			self.dy = self.dy + ny*dt*self.acc
+		end
 	end
 
 	self.dx = self.dx - self.dx * dt * self.fric
