@@ -18,7 +18,7 @@ function state:init()
 	time = 0
 	count = 0
 	shake = 0
-	maxink = 300
+	maxink = 120
 	ink = maxink
 	maxlife = maxink
 	life = 0
